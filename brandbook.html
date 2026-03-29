@@ -2,7 +2,7 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>MetaTransfer | Brand Book</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,6 +35,7 @@
             #spaceCanvas { display: none !important; }
             .hero-spectra .spectra-beam { animation: none !important; opacity: 0.15 !important; }
             .hero-tag-word { transform: none !important; }
+            .hero-logo-hint { animation: none !important; }
             .hero-glow::before,
             .hero-glow::after,
             .concept-connector,
@@ -44,7 +45,13 @@
             .shatter-piece { opacity: 0 !important; transform: none !important; }
             .shatter-core { opacity: 1 !important; transform: none !important; }
         }
-        body { background-color: #0A0A0C; color: #E5E7EB; overflow-x: hidden; }
+        body {
+            background-color: #0A0A0C;
+            color: #E5E7EB;
+            overflow-x: hidden;
+            padding-left: env(safe-area-inset-left, 0);
+            padding-right: env(safe-area-inset-right, 0);
+        }
 
         /* Контент ЗАВЖДИ вище fixed-canvas (інакше частинки перекривають усі секції між першою й останньою) */
         .page-section {
@@ -186,6 +193,88 @@
             will-change: transform;
             transform: translate(var(--tx, 0px), var(--ty, 0px)) rotate(var(--rz, 0deg));
             transition: opacity 0.3s ease;
+        }
+
+        /* --- Hero: інтерактивний логотип (3 кліки: розбір → надув → збір) --- */
+        .hero-logo-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            gap: 0.75rem 1rem;
+        }
+        .hero-logo-btn {
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0.35rem;
+            margin: -0.35rem;
+            line-height: 0;
+            border-radius: 0.5rem;
+        }
+        .hero-logo-svg {
+            width: 80px;
+            height: 96px;
+            overflow: visible;
+            display: block;
+        }
+        .hero-logo-svg .logo-part {
+            transform-box: fill-box;
+            transform-origin: center center;
+            transition: transform 0.7s cubic-bezier(0.33, 1.15, 0.5, 1);
+        }
+        .hero-logo-btn--p1 .logo-part,
+        .hero-logo-btn--p2 .logo-part {
+            transform: translate(var(--lx, 0px), var(--ly, 0px)) rotate(var(--lr, 0deg));
+        }
+        .hero-logo-btn--p2 .logo-part {
+            transform: translate(var(--lx, 0px), var(--ly, 0px)) rotate(var(--lr, 0deg)) scale(1.38);
+        }
+        .hero-logo-hint {
+            font-size: 0.65rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(0, 229, 255, 0.82);
+            max-width: 8.5rem;
+            line-height: 1.4;
+            padding: 0.35rem 0 0.35rem 0.75rem;
+            border-left: 2px solid rgba(0, 229, 255, 0.35);
+            animation: heroLogoHintPulse 2.4s ease-in-out infinite;
+        }
+        .hero-logo-hint.is-dismissed {
+            opacity: 0;
+            max-height: 0;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            border: none;
+            animation: none;
+            transition: opacity 0.45s ease, max-height 0.4s ease;
+        }
+        @keyframes heroLogoHintPulse {
+            0%, 100% { opacity: 0.65; }
+            50% { opacity: 1; }
+        }
+        @media (max-width: 640px) {
+            .page-section {
+                padding: 2.75rem max(1rem, env(safe-area-inset-left, 0px)) 2.75rem max(1rem, env(safe-area-inset-right, 0px));
+            }
+            .hero-logo-wrap { flex-direction: column; align-items: flex-start; }
+            .hero-logo-btn {
+                min-width: 48px;
+                min-height: 48px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                -webkit-tap-highlight-color: rgba(0, 229, 255, 0.12);
+            }
+            .hero-logo-hint {
+                border-left: none;
+                border-top: 2px solid rgba(0, 229, 255, 0.35);
+                padding-left: 0;
+                padding-top: 0.5rem;
+                max-width: 100%;
+                font-size: 0.7rem;
+            }
         }
 
         /* --- Секція 2: рамка + пульс контейнера --- */
@@ -445,6 +534,7 @@
             #spaceCanvas { display: none !important; }
             .hero-glow::before, .hero-glow::after { animation: none !important; opacity: 0.3 !important; }
             .hero-tag-word { transform: none !important; }
+            .hero-logo-btn .logo-part { transform: none !important; }
             .hero-spectra .spectra-beam { animation: none !important; opacity: 0.2 !important; }
             .outro-logo { animation: none !important; }
         }
@@ -466,13 +556,22 @@
             <div class="spectra-beam" style="top: 58%"></div>
         </div>
         <div class="max-w-5xl mx-auto w-full relative z-10">
-            <div class="mb-12 reveal">
-                <!-- SVG Logo -->
-                <svg width="80" height="96" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-cobalt">
-                    <path d="M50 0L100 25V95L50 120L0 95V25L50 0Z" fill="currentColor" fill-opacity="0.15" stroke="currentColor" stroke-width="2"/>
-                    <path d="M25 40L50 55L75 40V80L50 95L25 80V40Z" stroke="#E5E7EB" stroke-width="6" stroke-linejoin="miter"/>
-                    <path d="M50 20V55" stroke="currentColor" stroke-width="6"/>
-                </svg>
+            <div class="hero-logo-wrap mb-12 reveal">
+                <button type="button" id="heroLogoBtn" class="hero-logo-btn" aria-label="Логотип MetaTransfer: натисніть тричі — розбір, надування, збір" aria-pressed="false">
+                    <svg class="hero-logo-svg text-cobalt" width="80" height="96" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <g class="logo-part logo-part--outline" data-logo-part="outline">
+                            <path d="M50 0L100 25V95L50 120L0 95V25L50 0Z" fill="currentColor" fill-opacity="0.15" stroke="currentColor" stroke-width="2"/>
+                        </g>
+                        <g class="logo-part logo-part--m" data-logo-part="m">
+                            <path d="M25 40L50 55L50 95L25 80Z" fill="none" stroke="#E5E7EB" stroke-width="6" stroke-linejoin="miter"/>
+                        </g>
+                        <g class="logo-part logo-part--t" data-logo-part="t">
+                            <path d="M50 55L75 40L75 80L50 95Z" fill="none" stroke="#E5E7EB" stroke-width="6" stroke-linejoin="miter"/>
+                            <path d="M50 20V55" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+                        </g>
+                    </svg>
+                </button>
+                <span id="heroLogoHint" class="hero-logo-hint">Натисніть для дії</span>
             </div>
             <h1 id="heroBrandHeading" class="font-display text-6xl md:text-8xl font-bold tracking-tight mb-4 reveal delay-100 hero-title-glow">
                 <span id="heroBrandTitle" class="hero-brand-title" aria-label="MetaTransfer">
@@ -1275,6 +1374,53 @@
                 btcDemoBtn.addEventListener("click", () => {
                     btcReceiveDisplay.classList.add("btc-flash");
                     setTimeout(() => btcReceiveDisplay.classList.remove("btc-flash"), 320);
+                });
+            }
+
+            /* --- Hero: логотип — 1) розбір 2) надув 3) збір --- */
+            const heroLogoBtn = document.getElementById("heroLogoBtn");
+            const heroLogoHint = document.getElementById("heroLogoHint");
+            const logoParts = heroLogoBtn ? heroLogoBtn.querySelectorAll(".logo-part") : [];
+            let logoPhase = 0;
+
+            function randomLogoOffsets() {
+                const spread = 24;
+                logoParts.forEach((g) => {
+                    const lx = (Math.random() - 0.5) * spread * 2;
+                    const ly = (Math.random() - 0.5) * spread * 2;
+                    const lr = (Math.random() - 0.5) * 30;
+                    g.style.setProperty("--lx", lx.toFixed(2) + "px");
+                    g.style.setProperty("--ly", ly.toFixed(2) + "px");
+                    g.style.setProperty("--lr", lr.toFixed(2) + "deg");
+                });
+            }
+
+            function clearLogoOffsets() {
+                logoParts.forEach((g) => {
+                    g.style.removeProperty("--lx");
+                    g.style.removeProperty("--ly");
+                    g.style.removeProperty("--lr");
+                });
+            }
+
+            if (heroLogoBtn && logoParts.length && !mqReduce.matches) {
+                heroLogoBtn.addEventListener("click", () => {
+                    logoPhase = (logoPhase + 1) % 3;
+                    if (logoPhase === 0) {
+                        heroLogoBtn.classList.remove("hero-logo-btn--p1", "hero-logo-btn--p2");
+                        clearLogoOffsets();
+                        heroLogoBtn.setAttribute("aria-pressed", "false");
+                    } else if (logoPhase === 1) {
+                        randomLogoOffsets();
+                        heroLogoBtn.classList.remove("hero-logo-btn--p2");
+                        heroLogoBtn.classList.add("hero-logo-btn--p1");
+                        heroLogoBtn.setAttribute("aria-pressed", "true");
+                        if (heroLogoHint) heroLogoHint.classList.add("is-dismissed");
+                    } else {
+                        heroLogoBtn.classList.remove("hero-logo-btn--p1");
+                        heroLogoBtn.classList.add("hero-logo-btn--p2");
+                        heroLogoBtn.setAttribute("aria-pressed", "true");
+                    }
                 });
             }
 
