@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MetaTransfer | Brand Book</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        graphite: {
+                            900: '#0A0A0C',
+                            800: '#15151A',
+                        },
+                        cobalt: '#00E5FF', /* Cyber Cyan */
+                        platinum: '#E5E7EB',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            #spaceCanvas { display: none !important; }
+            .hero-spectra .spectra-beam { animation: none !important; opacity: 0.15 !important; }
+            .hero-tag-word { transform: none !important; }
+            .hero-glow::before,
+            .hero-glow::after,
+            .concept-connector,
+            .swatch-top::after,
+            .outro-logo { animation: none !important; }
+            .shatter-grid { visibility: hidden !important; pointer-events: none !important; }
+            .shatter-piece { opacity: 0 !important; transform: none !important; }
+            .shatter-core { opacity: 1 !important; transform: none !important; }
+        }
+        body { background-color: #0A0A0C; color: #E5E7EB; overflow-x: hidden; }
+
+        /* Контент ЗАВЖДИ вище fixed-canvas (інакше частинки перекривають усі секції між першою й останньою) */
+        .page-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+            isolation: isolate;
+            overflow: hidden;
+            page-break-after: always;
+            padding: 4rem 2rem;
+        }
+        .page-section--shatter { overflow-x: hidden; overflow-y: visible; }
+        /* Слоган може «розлітатися» за межі рядка */
+        #heroSection.page-section {
+            overflow-x: hidden;
+            overflow-y: visible;
+        }
+
+        /* --- Секція 1: глибина, орби --- */
+        .hero-glow::before,
+        .hero-glow::after {
+            content: ''; position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 1;
+            opacity: 0.45; animation: orbFloat 14s ease-in-out infinite;
+        }
+        .hero-glow::before {
+            width: min(70vw, 420px); height: min(70vw, 420px);
+            top: -10%; right: -5%; background: radial-gradient(circle, rgba(0, 229, 255, 0.22) 0%, transparent 70%);
+        }
+        .hero-glow::after {
+            width: min(50vw, 300px); height: min(50vw, 300px);
+            bottom: 5%; left: -8%; background: radial-gradient(circle, rgba(100, 200, 255, 0.08) 0%, transparent 70%);
+            animation-delay: -7s; animation-duration: 18s;
+        }
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-12px, 18px) scale(1.05); }
+        }
+        .hero-title-glow { text-shadow: 0 0 60px rgba(0, 229, 255, 0.15); }
+
+        /* --- Hero: спектральні «прольоти» --- */
+        .hero-spectra {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .hero-spectra .spectra-beam {
+            position: absolute;
+            left: -30%;
+            width: 160%;
+            height: 3px;
+            opacity: 0.4;
+            filter: blur(4px);
+            border-radius: 999px;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(255, 0, 128, 0.5) 15%,
+                rgba(0, 229, 255, 0.85) 40%,
+                rgba(124, 58, 237, 0.65) 65%,
+                rgba(0, 229, 255, 0.4) 82%,
+                transparent 100%
+            );
+            transform: rotate(-10deg);
+            animation: spectraSweep 14s ease-in-out infinite;
+        }
+        .hero-spectra .spectra-beam:nth-child(2) {
+            top: 38%;
+            height: 2px;
+            opacity: 0.28;
+            animation: spectraSweep2 19s ease-in-out infinite;
+            animation-delay: -6s;
+            transform: rotate(6deg);
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(0, 229, 255, 0.35),
+                rgba(236, 72, 153, 0.45),
+                rgba(59, 130, 246, 0.35),
+                transparent
+            );
+        }
+        .hero-spectra .spectra-beam:nth-child(3) {
+            top: 62%;
+            height: 5px;
+            opacity: 0.22;
+            filter: blur(8px);
+            animation: spectraSweep3 22s linear infinite;
+            animation-delay: -3s;
+            transform: rotate(-4deg);
+        }
+        @keyframes spectraSweep {
+            0%, 100% { transform: translateX(-25%) rotate(-10deg); opacity: 0.25; }
+            50% { transform: translateX(25%) rotate(-10deg); opacity: 0.5; }
+        }
+        @keyframes spectraSweep2 {
+            0%, 100% { transform: translateX(20%) rotate(6deg); opacity: 0.18; }
+            50% { transform: translateX(-18%) rotate(6deg); opacity: 0.38; }
+        }
+        @keyframes spectraSweep3 {
+            0% { transform: translateX(-15%) rotate(-4deg); }
+            100% { transform: translateX(15%) rotate(-4deg); }
+        }
+
+        /* Літери заголовка: слот + зсув при скролі */
+        .hero-brand-title {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 0;
+        }
+        .hero-char {
+            display: inline-block;
+            overflow: visible;
+            vertical-align: baseline;
+        }
+        .hero-char-inner {
+            display: inline-block;
+            will-change: transform;
+            transform: translateY(var(--ty, 0));
+            filter: blur(var(--blur, 0px));
+            transition: filter 0.45s ease;
+        }
+        .hero-title--scrolling .hero-char-inner {
+            transition: filter 0.35s ease;
+        }
+
+        .hero-tagline {
+            position: relative;
+            z-index: 2;
+            line-height: 1.35;
+        }
+        .hero-tag-word {
+            display: inline-block;
+            will-change: transform;
+            transform: translate(var(--tx, 0px), var(--ty, 0px)) rotate(var(--rz, 0deg));
+            transition: opacity 0.3s ease;
+        }
+
+        /* --- Секція 2: рамка + пульс контейнера --- */
+        .philosophy-frame { position: relative; }
+        .philosophy-frame::before {
+            content: ''; position: absolute; inset: -1px; border: 1px solid rgba(0, 229, 255, 0.12);
+            pointer-events: none; opacity: 0; transition: opacity 0.6s ease;
+        }
+        .philosophy-frame.is-visible::before { opacity: 1; }
+        .shatter-panel {
+            box-shadow: 0 0 0 0 rgba(0, 229, 255, 0);
+            transition: box-shadow 0.8s ease;
+        }
+        .shatter-panel.is-lit {
+            box-shadow: 0 0 40px rgba(0, 229, 255, 0.12), inset 0 0 60px rgba(0, 229, 255, 0.04);
+        }
+
+        /* --- Секція 3: картки формули --- */
+        .concept-pill {
+            transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+            border: 1px solid rgba(55, 65, 81, 0.8);
+            border-radius: 0.75rem; padding: 1rem 1.25rem;
+            background: rgba(10, 10, 12, 0.4);
+        }
+        .concept-pill:hover {
+            transform: translateY(-4px);
+            border-color: rgba(0, 229, 255, 0.35);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45), 0 0 24px rgba(0, 229, 255, 0.08);
+        }
+        .concept-connector { animation: pulseSoft 3s ease-in-out infinite; }
+        @keyframes pulseSoft {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.08); }
+        }
+
+        /* --- Секції 4–5: блік --- */
+        .shine-box { position: relative; overflow: hidden; }
+        .shine-box::after {
+            content: ''; position: absolute; top: -50%; left: -60%; width: 40%; height: 200%;
+            background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.06) 50%, transparent 60%);
+            transform: rotate(12deg);
+            animation: shineSweep 7s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes shineSweep {
+            0%, 100% { left: -60%; opacity: 0; }
+            15% { opacity: 1; }
+            45% { left: 120%; opacity: 0.8; }
+            60% { opacity: 0; }
+        }
+
+        /* --- Секція 6: кольори --- */
+        .swatch-top { position: relative; overflow: hidden; }
+        .swatch-top::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+            transform: translateX(-100%); animation: swatchShimmer 4s ease-in-out infinite;
+        }
+        .swatch-card:hover .swatch-top::after { animation-duration: 1.5s; }
+        @keyframes swatchShimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* --- Секція 7: типографіка --- */
+        .type-specimen {
+            position: relative;
+            background: linear-gradient(180deg, rgba(0,229,255,0.03) 0%, transparent 40%);
+        }
+        .type-specimen::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0,229,255,0.4), transparent);
+        }
+
+        /* --- Секція носіїв: м’яка неонова рамка --- */
+        .merch-card {
+            position: relative; border-radius: 0.5rem;
+            border: 1px solid rgba(55, 65, 81, 0.85);
+            transition: border-color 0.45s ease, box-shadow 0.45s ease;
+        }
+        .merch-card:hover {
+            border-color: rgba(0, 229, 255, 0.35);
+            box-shadow: 0 0 32px rgba(0, 229, 255, 0.1), inset 0 0 40px rgba(0, 229, 255, 0.03);
+        }
+
+        /* --- VIP-картка: акцент + розліт по кліку --- */
+        .vip-card-shell {
+            position: relative;
+            perspective: 900px;
+            border-radius: 0.75rem;
+        }
+        .vip-card-shell--in-view {
+            animation: vipSpotlight 2.8s ease-in-out infinite;
+        }
+        @keyframes vipSpotlight {
+            0%, 100% { filter: drop-shadow(0 0 12px rgba(0, 229, 255, 0.25)); box-shadow: 0 0 0 0 rgba(0, 229, 255, 0.2); }
+            50% { filter: drop-shadow(0 0 28px rgba(0, 229, 255, 0.55)); box-shadow: 0 0 0 4px rgba(0, 229, 255, 0.12); }
+        }
+        .vip-card-face {
+            transition: opacity 0.45s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .vip-frag-grid {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 2px;
+            z-index: 15;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        .vip-card-shell.is-exploded .vip-frag-grid {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .vip-card-shell.is-exploded .vip-card-face {
+            opacity: 0;
+            transform: scale(0.92);
+            pointer-events: none;
+        }
+        .vip-frag {
+            border-radius: 4px;
+            background: linear-gradient(145deg, #1f1f1f 0%, #0c0c0e 45%, #151518 100%);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.45);
+            transform: translate3d(0, 0, 0) rotate(0deg);
+            transition: transform 0.85s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.6s ease;
+            will-change: transform;
+        }
+        .vip-card-shell.is-exploded .vip-frag {
+            transform: translate3d(var(--tx), var(--ty), 0) rotate(var(--rz));
+            opacity: 0.88;
+        }
+        .vip-card-hint {
+            font-size: 0.65rem;
+            letter-spacing: 0.12em;
+            color: rgba(0, 229, 255, 0.65);
+            margin-top: 0.75rem;
+            text-align: center;
+            opacity: 0.85;
+        }
+
+        #btcReceiveDisplay {
+            transition: transform 0.25s ease, color 0.25s ease;
+        }
+        #btcReceiveDisplay.btc-flash {
+            transform: scale(1.04);
+            color: #00e5ff !important;
+        }
+
+        /* --- Фінал: пульс лого --- */
+        .outro-logo { animation: logoBreath 5s ease-in-out infinite; filter: drop-shadow(0 0 20px rgba(0,229,255,0.2)); }
+        @keyframes logoBreath {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.02); opacity: 0.95; }
+        }
+        
+        .grid-bg {
+            background-color: #0A0A0C;
+            background-image: 
+                linear-gradient(rgba(0, 229, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 229, 255, 0.05) 1px, transparent 1px),
+                repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0, rgba(255,255,255,0.02) 1px, transparent 0, transparent 50%);
+            background-size: 60px 60px, 60px 60px, 20px 20px;
+        }
+        
+        #spaceCanvas {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .accent-lines {
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(-45deg, transparent, transparent 100px, rgba(0, 229, 255, 0.03) 100px, rgba(0, 229, 255, 0.03) 102px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .page-num { position: absolute; bottom: 2rem; right: 2rem; font-family: 'Space Grotesk', sans-serif; color: #4B5563; font-size: 0.875rem; font-weight: 700; letter-spacing: 0.1em; z-index: 10; }
+        
+        /* SCROLL ANIMATIONS (Скрываем до скролла) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+
+        /* SHATTER EFFECT (Куб, который разлетается) */
+        .shatter-wrapper {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            perspective: 1000px;
+            margin: 0 auto;
+        }
+        .shatter-core {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: scale(0.85);
+            transition: opacity 0.45s ease, transform 0.45s ease;
+            z-index: 3;
+        }
+        .shatter-wrapper.is-visible .shatter-core {
+            opacity: 1;
+            transform: scale(1);
+            transition: opacity 0.7s ease 0.55s, transform 0.7s cubic-bezier(0.19, 1, 0.22, 1) 0.55s;
+        }
+        .shatter-grid {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(5, 1fr);
+            gap: 1px;
+            z-index: 2;
+        }
+        .shatter-piece {
+            background-color: #00E5FF;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+            transition: transform 1.35s cubic-bezier(0.19, 1, 0.22, 1), opacity 1.1s ease-out, filter 1s ease;
+            transform-origin: center center;
+            transform: translate3d(0, 0, 0) rotateX(0) rotateY(0) rotateZ(0);
+            opacity: 1;
+        }
+        /* Розліт: осколки лишаються видимими (не зникають), лише розлітаються */
+        .shatter-wrapper.is-visible .shatter-piece {
+            transform: translate3d(var(--tx), var(--ty), var(--tz)) rotateX(var(--rx)) rotateY(var(--ry)) rotateZ(var(--rz));
+            opacity: 0.58;
+            filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.65));
+            pointer-events: none;
+        }
+
+        /* PRINT STYLES - Для ПДФ отключаем анимации, чтобы все было видно сразу */
+        @media print {
+            .page-section { height: 100vh; padding: 2rem; }
+            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .reveal, .shatter-piece, .shatter-core { opacity: 1 !important; transform: none !important; transition: none !important; filter: none !important; }
+            .shatter-piece { display: none !important; }
+            #spaceCanvas { display: none !important; }
+            .hero-glow::before, .hero-glow::after { animation: none !important; opacity: 0.3 !important; }
+            .hero-tag-word { transform: none !important; }
+            .hero-spectra .spectra-beam { animation: none !important; opacity: 0.2 !important; }
+            .outro-logo { animation: none !important; }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-cobalt selection:text-black">
+
+    <!-- Фон: «космічні» частиці + сітка (частиці рухаються від скролу) -->
+    <canvas id="spaceCanvas" aria-hidden="true"></canvas>
+    <div class="fixed inset-0 pointer-events-none z-0">
+        <div class="accent-lines"></div>
+    </div>
+
+    <!-- PAGE 1: Cover -->
+    <section id="heroSection" class="page-section grid-bg border-b border-gray-800 hero-glow">
+        <div class="hero-spectra" aria-hidden="true">
+            <div class="spectra-beam" style="top: 18%"></div>
+            <div class="spectra-beam"></div>
+            <div class="spectra-beam" style="top: 58%"></div>
+        </div>
+        <div class="max-w-5xl mx-auto w-full relative z-10">
+            <div class="mb-12 reveal">
+                <!-- SVG Logo -->
+                <svg width="80" height="96" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-cobalt">
+                    <path d="M50 0L100 25V95L50 120L0 95V25L50 0Z" fill="currentColor" fill-opacity="0.15" stroke="currentColor" stroke-width="2"/>
+                    <path d="M25 40L50 55L75 40V80L50 95L25 80V40Z" stroke="#E5E7EB" stroke-width="6" stroke-linejoin="miter"/>
+                    <path d="M50 20V55" stroke="currentColor" stroke-width="6"/>
+                </svg>
+            </div>
+            <h1 id="heroBrandHeading" class="font-display text-6xl md:text-8xl font-bold tracking-tight mb-4 reveal delay-100 hero-title-glow">
+                <span id="heroBrandTitle" class="hero-brand-title" aria-label="MetaTransfer">
+                    <span class="hero-char"><span class="hero-char-inner" data-ch="M" style="--i:0">M</span></span><span class="hero-char"><span class="hero-char-inner" data-ch="e" style="--i:1">e</span></span><span class="hero-char"><span class="hero-char-inner" data-ch="t" style="--i:2">t</span></span><span class="hero-char"><span class="hero-char-inner" data-ch="a" style="--i:3">a</span></span><span class="hero-char text-cobalt"><span class="hero-char-inner" data-ch="T" style="--i:4">T</span></span><span class="hero-char text-cobalt"><span class="hero-char-inner" data-ch="r" style="--i:5">r</span></span><span class="hero-char text-cobalt"><span class="hero-char-inner" data-ch="a" style="--i:6">a</span></span><span class="hero-char text-cobalt"><span class="hero-char-inner" data-ch="n" style="--i:7">n</span></span><span class="hero-char text-cobalt"><span class="hero-char-inner" data-ch="s" style="--i:8">s</span></span><span class="hero-char text-cobalt"><span class="hero-char-inner" data-ch="f" style="--i:9">f</span></span><span class="hero-char text-cobalt"><span class="hero-char-inner" data-ch="e" style="--i:10">e</span></span><span class="hero-char text-cobalt"><span class="hero-char-inner" data-ch="r" style="--i:11">r</span></span>
+                </span>
+            </h1>
+            <p id="heroTagline" class="hero-tagline font-display text-xl md:text-2xl text-gray-400 tracking-widest uppercase mb-16 reveal delay-200 flex flex-wrap items-baseline gap-x-3 md:gap-x-4 gap-y-2" aria-label="Premium Crypto & Fiat Exchange">
+                <span class="hero-tag-word">Premium</span>
+                <span class="hero-tag-word">Crypto</span>
+                <span class="hero-tag-word">&</span>
+                <span class="hero-tag-word">Fiat</span>
+                <span class="hero-tag-word">Exchange</span>
+            </p>
+            
+            <div class="max-w-xl border-l-2 border-cobalt pl-6 reveal delay-300">
+                <p class="text-gray-400 leading-relaxed">
+                    У цьому брендбуці зафіксована візуальна ідеологія, принципи абсолютної конфіденційності та суворий мінімалістичний стиль компанії.
+                </p>
+            </div>
+        </div>
+        <div class="page-num">01</div>
+    </section>
+
+    <!-- PAGE 2: Philosophy — осколки не обрізаються краєм секції -->
+    <section class="page-section page-section--shatter border-b border-gray-800">
+        <div class="max-w-5xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div class="reveal philosophy-frame">
+                <h2 class="font-display text-xs text-cobalt tracking-[0.2em] uppercase mb-4">Філософія & Місія</h2>
+                <h3 class="font-display text-4xl md:text-5xl font-bold leading-tight mb-8">Точність.<br>Конфіденційність.<br>Ефективність.</h3>
+                <p class="text-gray-400 leading-relaxed mb-6 text-lg">
+                    Наша мета — забезпечити найвигідніший курс та абсолютну анонімність для кожного клієнта. Ми відкидаємо зайве, залишаючи лише швидкість, безпеку та широкий спектр фінансових послуг.
+                </p>
+                <p class="text-gray-500 leading-relaxed">
+                    Строгий підхід до операцій та безкомпромісна надійність — це фундамент, на якому будується довіра до «MetaTransfer». Ми не просто обмінник, ми — ваш закритий фінансовий інструмент.
+                </p>
+            </div>
+            
+            <!-- Shatter: тригер лише коли блок у «центрі» вікна; overflow-visible щоб осколки не різались -->
+            <div id="shatterPanel" class="min-h-[22rem] py-10 bg-graphite-800 border border-gray-800 relative overflow-visible flex items-center justify-center reveal delay-200 shatter-panel">
+                <div class="absolute inset-0 opacity-20 grid-bg pointer-events-none rounded-sm"></div>
+                
+                <div class="shatter-wrapper" id="shatterBox">
+                    <!-- Логотип, который прячется под кубом -->
+                    <div class="shatter-core">
+                        <svg width="80" height="96" viewBox="0 0 100 120" fill="none" class="text-gray-600">
+                            <path d="M50 0L100 25V95L50 120L0 95V25L50 0Z" stroke="currentColor" stroke-width="2"/>
+                            <path d="M25 40L50 55L75 40V80L50 95L25 80V40Z" stroke="#E5E7EB" stroke-width="4"/>
+                            <path d="M50 20V55" stroke="#E5E7EB" stroke-width="4"/>
+                        </svg>
+                    </div>
+                    <!-- Сетка осколков генерируется через JS -->
+                    <div class="shatter-grid" id="shatterGrid"></div>
+                </div>
+            </div>
+        </div>
+        <div class="page-num">02</div>
+    </section>
+
+    <!-- PAGE 3: Concept -->
+    <section class="page-section bg-graphite-800 border-b border-gray-800">
+        <div class="max-w-5xl mx-auto w-full text-center">
+            <h2 class="font-display text-xs text-cobalt tracking-[0.2em] uppercase mb-16 reveal">Концепція візуальної метафори</h2>
+            
+            <div class="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8 mb-16 font-display text-2xl font-bold reveal delay-100 flex-wrap">
+                <div class="concept-pill flex flex-col items-center">
+                    <span class="text-4xl text-platinum mb-2">M</span>
+                    <span class="text-xs text-gray-500 uppercase tracking-widest">Масштаб</span>
+                </div>
+                <span class="text-cobalt concept-connector text-3xl font-light">+</span>
+                <div class="concept-pill flex flex-col items-center">
+                    <span class="text-4xl text-platinum mb-2">T</span>
+                    <span class="text-xs text-gray-500 uppercase tracking-widest">Транзакція</span>
+                </div>
+                <span class="text-cobalt concept-connector text-3xl font-light">+</span>
+                <div class="concept-pill flex flex-col items-center">
+                    <svg width="32" height="40" viewBox="0 0 100 120" fill="none" class="mb-2 text-platinum">
+                        <path d="M50 0L100 25V95L50 120L0 95V25L50 0Z" stroke="currentColor" stroke-width="8"/>
+                    </svg>
+                    <span class="text-xs text-gray-500 uppercase tracking-widest">Безпека</span>
+                </div>
+                <span class="text-cobalt concept-connector text-3xl font-light">=</span>
+                <div class="concept-pill flex flex-col items-center border-cobalt/20">
+                    <span class="text-4xl text-cobalt mb-2">MT</span>
+                    <span class="text-xs text-cobalt uppercase tracking-widest">MetaTransfer</span>
+                </div>
+            </div>
+
+            <p class="max-w-2xl mx-auto text-gray-400 leading-relaxed text-lg reveal delay-200">
+                Ідея полягала в тому, щоб створити строгий геометричний символ, який не кричить про криптовалюту, а транслює статус, безпеку та преміальне обслуговування. Мінімум деталей — максимум ваги.
+            </p>
+        </div>
+        <div class="page-num">03</div>
+    </section>
+
+    <!-- PAGE 4 & 5: Logo & Clear Space -->
+    <section class="page-section border-b border-gray-800">
+        <div class="max-w-5xl mx-auto w-full">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+                <!-- Logo Display -->
+                <div class="reveal">
+                    <h2 class="font-display text-xs text-cobalt tracking-[0.2em] uppercase mb-8">Логотип та Монограма</h2>
+                    <div class="shine-box bg-black border border-gray-800 p-16 flex justify-center items-center mb-6 relative overflow-hidden rounded-sm">
+                        <div class="absolute inset-0 grid-bg opacity-30"></div>
+                        <div class="flex items-center gap-6 relative z-10">
+                            <svg width="48" height="58" viewBox="0 0 100 120" fill="none" class="text-cobalt">
+                                <path d="M50 0L100 25V95L50 120L0 95V25L50 0Z" fill="currentColor" fill-opacity="0.15" stroke="currentColor" stroke-width="2"/>
+                                <path d="M25 40L50 55L75 40V80L50 95L25 80V40Z" stroke="#E5E7EB" stroke-width="6" stroke-linejoin="miter"/>
+                                <path d="M50 20V55" stroke="currentColor" stroke-width="6"/>
+                            </svg>
+                            <span class="font-display text-4xl font-bold">Meta<span class="text-cobalt">Transfer</span></span>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Логотип побудований на чітких лініях та гострих кутах, що символізують точність алгоритмів обміну та вигідні курси. Жодних м'яких форм — лише впевненість та стабільність.
+                    </p>
+                </div>
+
+                <!-- Clear Space -->
+                <div class="reveal delay-200">
+                    <h2 class="font-display text-xs text-cobalt tracking-[0.2em] uppercase mb-8">Вільний простір (Clear Space)</h2>
+                    <div class="shine-box bg-black border border-gray-800 p-16 flex justify-center items-center relative mb-6 rounded-sm overflow-hidden">
+                        <!-- Padding indicators -->
+                        <div class="absolute inset-8 border border-dashed border-gray-700"></div>
+                        <div class="absolute top-4 left-1/2 -translate-x-1/2 text-xs text-gray-600 font-mono">X</div>
+                        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 text-xs text-gray-600 font-mono">X</div>
+                        <div class="absolute left-4 top-1/2 -translate-y-1/2 text-xs text-gray-600 font-mono">X</div>
+                        <div class="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-gray-600 font-mono">X</div>
+                        
+                        <div class="flex items-center gap-4 relative z-10">
+                            <svg width="32" height="38" viewBox="0 0 100 120" fill="none" class="text-cobalt">
+                                <path d="M50 0L100 25V95L50 120L0 95V25L50 0Z" fill="currentColor" fill-opacity="0.15" stroke="currentColor" stroke-width="2"/>
+                                <path d="M25 40L50 55L75 40V80L50 95L25 80V40Z" stroke="#E5E7EB" stroke-width="6"/>
+                            </svg>
+                            <span class="font-display text-2xl font-bold">MetaTransfer</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Для збереження преміального вигляду навколо логотипу завжди повинен залишатися вільний простір. За мінімальний відступ (X) приймається висота літери «M».
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="page-num">04-05</div>
+    </section>
+
+    <!-- PAGE 6: Colors -->
+    <section class="page-section border-b border-gray-800">
+        <div class="max-w-5xl mx-auto w-full">
+            <h2 class="font-display text-xs text-cobalt tracking-[0.2em] uppercase mb-4 reveal">Брендові кольори</h2>
+            <p class="text-gray-400 mb-12 max-w-2xl reveal">Наша палітра базується на глибоких, строгих відтінках. Вони підкреслюють технологічність, статусність та стриманість.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Color 1 -->
+                <div class="reveal delay-100 swatch-card group">
+                    <div class="swatch-top h-48 w-full bg-[#0A0A0C] border border-gray-800 rounded-t-lg mb-4"></div>
+                    <div class="bg-graphite-800 p-6 border border-gray-800 rounded-b-lg -mt-4 relative z-10">
+                        <h3 class="font-display font-bold mb-4 uppercase text-sm">Deep Graphite</h3>
+                        <div class="space-y-2 text-sm font-mono text-gray-400">
+                            <div class="flex justify-between"><span>HEX</span><span class="text-white">#0A0A0C</span></div>
+                            <div class="flex justify-between"><span>RGB</span><span class="text-white">10 10 12</span></div>
+                            <div class="flex justify-between"><span>CMYK</span><span class="text-white">75 68 67 90</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Color 2 -->
+                <div class="reveal delay-200 swatch-card group">
+                    <div class="swatch-top h-48 w-full bg-[#00E5FF] rounded-t-lg mb-4 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent"></div>
+                    </div>
+                    <div class="bg-graphite-800 p-6 border border-gray-800 rounded-b-lg -mt-4 relative z-10">
+                        <h3 class="font-display font-bold mb-4 uppercase text-sm text-cobalt">Cyber Cyan</h3>
+                        <div class="space-y-2 text-sm font-mono text-gray-400">
+                            <div class="flex justify-between"><span>HEX</span><span class="text-white">#00E5FF</span></div>
+                            <div class="flex justify-between"><span>RGB</span><span class="text-white">0 229 255</span></div>
+                            <div class="flex justify-between"><span>CMYK</span><span class="text-white">70 0 10 0</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Color 3 -->
+                <div class="reveal delay-300 swatch-card group">
+                    <div class="swatch-top h-48 w-full bg-[#E5E7EB] rounded-t-lg mb-4"></div>
+                    <div class="bg-graphite-800 p-6 border border-gray-800 rounded-b-lg -mt-4 relative z-10">
+                        <h3 class="font-display font-bold mb-4 uppercase text-sm text-gray-300">Platinum</h3>
+                        <div class="space-y-2 text-sm font-mono text-gray-400">
+                            <div class="flex justify-between"><span>HEX</span><span class="text-white">#E5E7EB</span></div>
+                            <div class="flex justify-between"><span>RGB</span><span class="text-white">229 231 235</span></div>
+                            <div class="flex justify-between"><span>CMYK</span><span class="text-white">9 6 5 0</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-num">06</div>
+    </section>
+
+    <!-- PAGE 7: Typography -->
+    <section class="page-section bg-graphite-800 border-b border-gray-800">
+        <div class="max-w-5xl mx-auto w-full">
+            <h2 class="font-display text-xs text-cobalt tracking-[0.2em] uppercase mb-12 reveal">Брендові шрифти</h2>
+            
+            <div class="space-y-16">
+                <!-- Font 1 -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal">
+                    <div class="col-span-1">
+                        <h3 class="font-display text-2xl font-bold mb-2">Space Grotesk</h3>
+                        <p class="text-cobalt text-sm uppercase tracking-widest mb-4">Primary / Заголовки</p>
+                        <p class="text-gray-400 text-sm">Використовується скрізь, де є назва, слоган або ключова цифра. Широкий, жорсткий, привертає увагу.</p>
+                    </div>
+                    <div class="col-span-2 type-specimen bg-black border border-gray-800 p-8 overflow-hidden rounded-sm">
+                        <p class="font-display text-4xl mb-4 break-all leading-tight">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>1234567890</p>
+                    </div>
+                </div>
+
+                <!-- Font 2 -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal delay-100">
+                    <div class="col-span-1">
+                        <h3 class="font-sans text-2xl font-bold mb-2">Inter</h3>
+                        <p class="text-gray-400 text-sm uppercase tracking-widest mb-4">Secondary / Текст</p>
+                        <p class="text-gray-400 text-sm">Максимально читабельний, технічний шрифт. Подаємо для опису послуг, угод та інтерфейсів CRM.</p>
+                    </div>
+                    <div class="col-span-2 type-specimen bg-black border border-gray-800 p-8 overflow-hidden rounded-sm">
+                        <p class="font-sans text-3xl mb-4 break-all leading-relaxed">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>1234567890</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-num">07</div>
+    </section>
+
+    <!-- PAGE 10: Merch / Visuals -->
+    <section class="page-section grid-bg">
+        <div class="max-w-5xl mx-auto w-full">
+            <h2 class="font-display text-xs text-cobalt tracking-[0.2em] uppercase mb-4 reveal">Носії фірмового стилю</h2>
+            <p class="text-gray-400 mb-12 max-w-2xl reveal">Візуальна ідентичність продовжується у фізичному світі. Кожен елемент взаємодії з клієнтом має підкреслювати статус закритого фінансового інструменту.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- VIP Card Mockup — підсвітка в зоні видимості, клік = розліт / збірка -->
+                <div class="merch-card bg-graphite-800 p-8 flex flex-col justify-center items-center min-h-[400px] reveal delay-100">
+                    <p class="text-xs text-gray-500 uppercase tracking-widest mb-4 self-start">VIP-картка клієнта</p>
+                    <div id="vipCardShell" class="vip-card-shell w-80 h-48 rounded-xl cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-cobalt/40" tabindex="0" role="button" aria-pressed="false" aria-label="Демо VIP-картки: натисніть, щоб розбити та зібрати">
+                        <div class="vip-card-face absolute inset-0 z-10 rounded-xl overflow-hidden border border-gray-700/50 shadow-[0_20px_50px_rgba(0,0,0,0.5)]" style="background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0c 100%);">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent pointer-events-none"></div>
+                            <div class="absolute top-6 left-6 w-12 h-10 rounded border border-gray-600 bg-gray-800/50"></div>
+                            <div class="absolute top-6 right-6">
+                                <svg width="24" height="28" viewBox="0 0 100 120" fill="none" class="text-gray-500">
+                                    <path d="M50 0L100 25V95L50 120L0 95V25L50 0Z" stroke="currentColor" stroke-width="4"/>
+                                    <path d="M25 40L50 55L75 40V80L50 95L25 80V40Z" stroke="currentColor" stroke-width="4"/>
+                                </svg>
+                            </div>
+                            <div class="absolute bottom-6 left-6 font-mono text-gray-400 tracking-widest">
+                                <span class="text-xs">MEMBER</span><br>
+                                ANONYMOUS
+                            </div>
+                        </div>
+                        <div id="vipFragGrid" class="vip-frag-grid rounded-xl" aria-hidden="true"></div>
+                    </div>
+                    <p class="vip-card-hint uppercase">Клікніть — розліт / повторний клік — збірка</p>
+                </div>
+
+                <!-- CRM: курс BTC з біржі + розрахунок USD → BTC -->
+                <div class="merch-card bg-graphite-800 p-8 min-h-[400px] flex flex-col reveal delay-200">
+                    <p class="text-xs text-gray-500 uppercase tracking-widest mb-6">Елементи інтерфейсу (CRM)</p>
+                    <div class="flex-1 bg-black border border-gray-800 rounded p-6 flex flex-col gap-4 relative overflow-hidden">
+                        <div class="flex flex-col gap-2 border-b border-gray-800 pb-4">
+                            <div class="flex justify-between items-start gap-2">
+                                <span class="font-display text-white shrink-0">BTC / USD</span>
+                                <div class="text-right min-w-0">
+                                    <div class="flex items-baseline justify-end gap-2 flex-wrap">
+                                        <span id="btcPriceDisplay" class="text-[#00E5FF] font-mono text-lg tabular-nums tracking-tight transition-all duration-300">—</span>
+                                        <span id="btcPriceArrow" class="text-[10px] font-mono text-gray-500 opacity-0" aria-hidden="true"></span>
+                                    </div>
+                                    <span id="btcSource" class="block text-[10px] text-gray-500 uppercase tracking-wider mt-1">завантаження…</span>
+                                </div>
+                            </div>
+                            <p id="btcFetchError" class="text-xs text-amber-500/90 hidden leading-snug"></p>
+                        </div>
+                        <div>
+                            <label for="usdAmountInput" class="block text-xs text-gray-500 mb-1.5 uppercase tracking-wide">Сума в USD</label>
+                            <input type="number" id="usdAmountInput" min="0" step="0.01" value="1000" placeholder="1000" inputmode="decimal"
+                                class="w-full bg-graphite-800 border border-gray-700 rounded px-3 py-2.5 font-mono text-white placeholder-gray-600 focus:border-cobalt/50 focus:outline-none focus:ring-1 focus:ring-cobalt/30 transition-colors" />
+                        </div>
+                        <div class="bg-graphite-800 p-4 rounded border border-gray-700 relative overflow-hidden">
+                            <span class="block text-xs text-gray-500 mb-1 uppercase tracking-wide">Ви отримаєте</span>
+                            <div class="flex items-baseline gap-2 flex-wrap">
+                                <span id="btcReceiveDisplay" class="font-display text-2xl text-white tabular-nums tracking-tight inline-block transition-transform duration-300">0.00000000</span>
+                                <span class="font-mono text-sm text-cobalt/90">BTC</span>
+                            </div>
+                        </div>
+                        <button type="button" id="btcDemoBtn" class="w-full bg-cobalt hover:bg-[#00cce6] text-black font-display font-bold py-4 rounded transition-colors uppercase tracking-widest text-sm mt-auto shadow-[0_0_15px_rgba(0,229,255,0.3)]">
+                            Execute Transfer
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-num">08-10</div>
+    </section>
+
+    <!-- PAGE 11: Outro -->
+    <section class="page-section bg-black flex items-center justify-center text-center relative">
+        <div class="absolute inset-0 grid-bg opacity-50 pointer-events-none"></div>
+        <div class="relative z-10 reveal">
+            <svg width="60" height="72" viewBox="0 0 100 120" fill="none" class="text-cobalt mx-auto mb-8 outro-logo">
+                <path d="M50 0L100 25V95L50 120L0 95V25L50 0Z" fill="currentColor" fill-opacity="0.15" stroke="currentColor" stroke-width="2"/>
+                <path d="M25 40L50 55L75 40V80L50 95L25 80V40Z" stroke="#E5E7EB" stroke-width="6"/>
+                <path d="M50 20V55" stroke="currentColor" stroke-width="6"/>
+            </svg>
+            <h1 class="font-display text-5xl font-bold tracking-tight mb-4">Meta<span class="text-cobalt">Transfer</span></h1>
+            <p class="font-sans text-gray-500 tracking-[0.3em] uppercase text-sm mb-12">Precision • Discretion • Efficiency</p>
+            <p class="text-gray-700 text-xs uppercase tracking-widest">Розроблено для закритої екосистеми фінансових операцій.</p>
+        </div>
+    </section>
+
+    <!-- JAVASCRIPT: частиці, shatter-куб, VIP, курс BTC -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const mqReduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+            const shatterGrid = document.getElementById("shatterGrid");
+            if (shatterGrid) {
+                for (let i = 0; i < 25; i++) {
+                    const piece = document.createElement("div");
+                    piece.className = "shatter-piece";
+                    const spread = 420;
+                    piece.style.setProperty("--tx", (Math.random() - 0.5) * spread + "px");
+                    piece.style.setProperty("--ty", (Math.random() - 0.5) * spread + "px");
+                    piece.style.setProperty("--tz", Math.random() * 380 + "px");
+                    piece.style.setProperty("--rx", Math.random() * 540 - 270 + "deg");
+                    piece.style.setProperty("--ry", Math.random() * 540 - 270 + "deg");
+                    piece.style.setProperty("--rz", Math.random() * 540 - 270 + "deg");
+                    shatterGrid.appendChild(piece);
+                }
+            }
+
+            /* --- Космічні частиці + паралакс від скролу --- */
+            const canvas = document.getElementById("spaceCanvas");
+            if (canvas) {
+                const ctx = canvas.getContext("2d");
+                let stars = [];
+                let scrollY = window.scrollY || 0;
+                let scrollImpulse = 0;
+                let w = 0;
+                let h = 0;
+                let raf = 0;
+
+                function resize() {
+                    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+                    w = window.innerWidth;
+                    h = window.innerHeight;
+                    canvas.width = Math.floor(w * dpr);
+                    canvas.height = Math.floor(h * dpr);
+                    canvas.style.width = w + "px";
+                    canvas.style.height = h + "px";
+                    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                    const count = mqReduce.matches ? 60 : 160;
+                    stars = [];
+                    for (let i = 0; i < count; i++) {
+                        stars.push({
+                            x: Math.random() * w,
+                            y: Math.random() * h,
+                            r: Math.random() * 1.6 + 0.2,
+                            a: Math.random() * 0.55 + 0.15,
+                            ph: Math.random() * Math.PI * 2,
+                            sp: 0.15 + Math.random() * 0.85,
+                        });
+                    }
+                }
+
+                function draw(t) {
+                    ctx.fillStyle = "#0A0A0C";
+                    ctx.globalAlpha = 1;
+                    ctx.fillRect(0, 0, w, h);
+                    const time = t * 0.001;
+                    scrollImpulse *= mqReduce.matches ? 0 : 0.88;
+                    const drift = scrollY * (mqReduce.matches ? 0.08 : 0.32) + scrollImpulse;
+
+                    stars.forEach((s, i) => {
+                        let y = (s.y + drift * s.sp) % (h + 40);
+                        if (y < -20) y += h + 40;
+                        let x = s.x + Math.sin(time * 0.25 + s.ph) * 12;
+                        const tw = 0.65 + Math.sin(time * 1.2 + s.ph) * 0.35;
+                        const alpha = s.a * tw;
+                        ctx.beginPath();
+                        ctx.fillStyle = i % 7 === 0 ? "rgba(0, 229, 255," + alpha + ")" : "rgba(200, 220, 255," + alpha * 0.85 + ")";
+                        ctx.arc(x, y, s.r, 0, Math.PI * 2);
+                        ctx.fill();
+                        if (i % 11 === 0 && !mqReduce.matches) {
+                            ctx.strokeStyle = "rgba(0, 229, 255, " + (alpha * 0.25) + ")";
+                            ctx.lineWidth = 0.5;
+                            ctx.beginPath();
+                            ctx.moveTo(x, y);
+                            ctx.lineTo(x + (Math.sin(s.ph) * 18), y + (Math.cos(s.ph) * 18));
+                            ctx.stroke();
+                        }
+                    });
+
+                    if (!mqReduce.matches) raf = requestAnimationFrame(draw);
+                }
+
+                window.addEventListener(
+                    "scroll",
+                    () => {
+                        const ny = window.scrollY || 0;
+                        scrollImpulse += (ny - scrollY) * 0.22;
+                        scrollY = ny;
+                    },
+                    { passive: true }
+                );
+
+                window.addEventListener("resize", resize);
+                resize();
+                scrollY = window.scrollY || 0;
+                if (mqReduce.matches) {
+                    requestAnimationFrame(draw);
+                } else {
+                    raf = requestAnimationFrame(draw);
+                }
+            }
+
+            const revealObserver = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) entry.target.classList.add("is-visible");
+                        else entry.target.classList.remove("is-visible");
+                    });
+                },
+                { root: null, rootMargin: "0px 0px -6% 0px", threshold: [0, 0.1, 0.2] }
+            );
+            document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+
+            /* --- Hero: плавний зсув літер від скролу + м’яке повернення (lerp + rAF) --- */
+            const heroSection = document.getElementById("heroSection");
+            const heroBrandHeading = document.getElementById("heroBrandHeading");
+            const heroCharInners = heroBrandHeading
+                ? heroBrandHeading.querySelectorAll(".hero-char-inner")
+                : [];
+            const SCRAMBLE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            const heroN = heroCharInners.length;
+            const heroTaglineWords = document.querySelectorAll("#heroTagline .hero-tag-word");
+            const taglineSeeds =
+                heroTaglineWords.length > 0
+                    ? Array.from(heroTaglineWords).map(() => ({
+                          ang: Math.random() * Math.PI * 2,
+                          dist: 0.72 + Math.random() * 0.38,
+                          rot: (Math.random() - 0.5) * 52,
+                      }))
+                    : [];
+            let taglineT = 0;
+            let heroOnScreen = false;
+            let heroLastScrollY = window.scrollY;
+            let heroSettleTimer = null;
+            let heroVel = 0;
+            let heroScrollTarget = 0;
+            let heroSettling = false;
+            let heroLoopId = null;
+            const heroTy = heroN ? new Float32Array(heroN) : null;
+
+            function heroRestoreLetters() {
+                heroCharInners.forEach((el) => {
+                    const ch = el.getAttribute("data-ch");
+                    if (ch != null) el.textContent = ch;
+                });
+            }
+
+            function heroResetTransforms() {
+                if (!heroTy) return;
+                for (let i = 0; i < heroN; i++) heroTy[i] = 0;
+                heroCharInners.forEach((inner) => {
+                    inner.style.removeProperty("--ty");
+                    inner.style.removeProperty("--blur");
+                });
+            }
+
+            function heroResetTagline() {
+                taglineT = 0;
+                heroTaglineWords.forEach((el) => {
+                    el.style.removeProperty("--tx");
+                    el.style.removeProperty("--ty");
+                    el.style.removeProperty("--rz");
+                });
+            }
+
+            function heroPhysicsLoop() {
+                if (!heroOnScreen || mqReduce.matches || !heroBrandHeading || !heroTy) {
+                    heroLoopId = null;
+                    return;
+                }
+
+                if (heroSettling) {
+                    heroScrollTarget *= 0.78;
+                    heroVel *= 0.82;
+                } else {
+                    heroScrollTarget *= 0.985;
+                    heroVel *= 0.985;
+                }
+
+                const active = Math.abs(heroScrollTarget) > 0.08;
+                if (active) heroBrandHeading.classList.add("hero-title--scrolling");
+                else heroBrandHeading.classList.remove("hero-title--scrolling");
+
+                let maxAbs = 0;
+                const followTitle = heroSettling ? 0.46 : 0.52;
+                for (let i = 0; i < heroN; i++) {
+                    const stagger = 1 + i * 0.055;
+                    const tgt = heroScrollTarget * stagger;
+                    heroTy[i] += (tgt - heroTy[i]) * followTitle;
+                    maxAbs = Math.max(maxAbs, Math.abs(heroTy[i]));
+                    const ty = heroTy[i];
+                    const el = heroCharInners[i];
+                    el.style.setProperty("--ty", ty.toFixed(3) + "px");
+                    const b = Math.min(1.6, Math.abs(ty) * 0.045);
+                    el.style.setProperty("--blur", b > 0.1 ? b.toFixed(2) + "px" : "0px");
+                }
+
+                if (active && !heroSettling && Math.abs(heroScrollTarget) > 2.2 && Math.random() < 0.06) {
+                    const idx = Math.floor(Math.random() * heroN);
+                    heroCharInners[idx].textContent = SCRAMBLE[Math.floor(Math.random() * SCRAMBLE.length)];
+                }
+
+                const y = window.scrollY;
+                const taglineTargetT = Math.min(1, Math.pow(Math.min(y, 520) / 380, 0.92));
+                taglineT += (taglineTargetT - taglineT) * 0.32;
+                const maxR = Math.min(260, window.innerWidth * 0.32);
+                heroTaglineWords.forEach((el, i) => {
+                    const s = taglineSeeds[i];
+                    if (!s) return;
+                    const w = taglineT * taglineT;
+                    const tx = Math.cos(s.ang) * maxR * s.dist * w;
+                    const ty = Math.sin(s.ang) * maxR * 0.72 * s.dist * w;
+                    const rz = s.rot * taglineT;
+                    el.style.setProperty("--tx", tx.toFixed(2) + "px");
+                    el.style.setProperty("--ty", ty.toFixed(2) + "px");
+                    el.style.setProperty("--rz", rz.toFixed(2) + "deg");
+                });
+
+                const taglineMoving = Math.abs(taglineT - taglineTargetT) > 0.008;
+                const still =
+                    Math.abs(heroScrollTarget) > 0.02 ||
+                    maxAbs > 0.04 ||
+                    Math.abs(heroVel) > 0.02;
+                if (heroSettling && Math.abs(heroScrollTarget) < 0.04 && maxAbs < 0.06) {
+                    heroRestoreLetters();
+                    heroBrandHeading.classList.remove("hero-title--scrolling");
+                    heroResetTransforms();
+                    heroSettling = false;
+                    heroScrollTarget = 0;
+                    heroVel = 0;
+                }
+
+                if (still || heroSettling || taglineMoving) heroLoopId = requestAnimationFrame(heroPhysicsLoop);
+                else heroLoopId = null;
+            }
+
+            function heroEnsureLoop() {
+                if (!heroLoopId && heroOnScreen && !mqReduce.matches) {
+                    heroLoopId = requestAnimationFrame(heroPhysicsLoop);
+                }
+            }
+
+            if (heroSection && heroBrandHeading && heroN) {
+                new IntersectionObserver(
+                    (entries) => {
+                        entries.forEach((en) => {
+                            heroOnScreen = en.isIntersecting;
+                            if (!heroOnScreen) {
+                                clearTimeout(heroSettleTimer);
+                                heroSettling = false;
+                                heroScrollTarget = 0;
+                                heroVel = 0;
+                                if (heroLoopId) {
+                                    cancelAnimationFrame(heroLoopId);
+                                    heroLoopId = null;
+                                }
+                                heroRestoreLetters();
+                                heroBrandHeading.classList.remove("hero-title--scrolling");
+                                heroResetTransforms();
+                                heroResetTagline();
+                            } else {
+                                heroLastScrollY = window.scrollY;
+                                heroEnsureLoop();
+                            }
+                        });
+                    },
+                    { threshold: [0, 0.08, 0.2, 0.35] }
+                ).observe(heroSection);
+
+                window.addEventListener(
+                    "scroll",
+                    () => {
+                        if (!heroOnScreen || mqReduce.matches) return;
+                        const y = window.scrollY;
+                        const delta = y - heroLastScrollY;
+                        heroLastScrollY = y;
+                        heroVel = heroVel * 0.38 + delta * 1.25;
+                        const next = Math.max(-28, Math.min(28, -heroVel * 0.95));
+                        heroScrollTarget += (next - heroScrollTarget) * 0.78;
+                        heroSettling = false;
+                        clearTimeout(heroSettleTimer);
+                        heroSettleTimer = setTimeout(() => {
+                            heroSettling = true;
+                            heroVel = 0;
+                            heroRestoreLetters();
+                        }, 200);
+                        heroEnsureLoop();
+                    },
+                    { passive: true }
+                );
+            }
+
+            const shatterBox = document.getElementById("shatterBox");
+            const shatterPanel = document.getElementById("shatterPanel");
+            if (shatterBox && shatterPanel && !mqReduce.matches) {
+                new IntersectionObserver(
+                    (entries) => {
+                        entries.forEach((entry) => {
+                            if (entry.isIntersecting) {
+                                shatterBox.classList.add("is-visible");
+                                shatterPanel.classList.add("is-lit");
+                            } else {
+                                shatterBox.classList.remove("is-visible");
+                                shatterPanel.classList.remove("is-lit");
+                            }
+                        });
+                    },
+                    { root: null, rootMargin: "-30% 0px -30% 0px", threshold: [0, 0.15, 0.35, 0.55, 0.75, 1] }
+                ).observe(shatterBox);
+            }
+
+            /* --- VIP-картка: осколки + підсвітка в кадрі --- */
+            const vipShell = document.getElementById("vipCardShell");
+            const vipFragGrid = document.getElementById("vipFragGrid");
+            if (vipShell && vipFragGrid) {
+                for (let i = 0; i < 9; i++) {
+                    const f = document.createElement("div");
+                    f.className = "vip-frag";
+                    const spread = 140;
+                    f.style.setProperty("--tx", (Math.random() - 0.5) * spread + "px");
+                    f.style.setProperty("--ty", (Math.random() - 0.65) * spread + "px");
+                    f.style.setProperty("--rz", (Math.random() - 0.5) * 38 + "deg");
+                    vipFragGrid.appendChild(f);
+                }
+                const toggleVip = () => {
+                    const on = vipShell.classList.toggle("is-exploded");
+                    vipShell.setAttribute("aria-pressed", on ? "true" : "false");
+                };
+                vipShell.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    toggleVip();
+                });
+                vipShell.addEventListener("keydown", (e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        toggleVip();
+                    }
+                });
+                new IntersectionObserver(
+                    (entries) => {
+                        entries.forEach((en) => {
+                            vipShell.classList.toggle("vip-card-shell--in-view", en.isIntersecting);
+                        });
+                    },
+                    { threshold: 0.4, rootMargin: "-5% 0px" }
+                ).observe(vipShell);
+            }
+
+            /* --- BTC: біржа → USD → BTC з анімацією --- */
+            const btcPriceDisplay = document.getElementById("btcPriceDisplay");
+            const btcSource = document.getElementById("btcSource");
+            const btcFetchError = document.getElementById("btcFetchError");
+            const usdAmountInput = document.getElementById("usdAmountInput");
+            const btcReceiveDisplay = document.getElementById("btcReceiveDisplay");
+            const btcPriceArrow = document.getElementById("btcPriceArrow");
+            const btcDemoBtn = document.getElementById("btcDemoBtn");
+
+            let btcPriceUsd = null;
+            let lastShownPrice = 0;
+            let recvAnimGen = 0;
+
+            function formatBtc(v) {
+                if (!Number.isFinite(v)) return "0.00000000";
+                return v.toFixed(8);
+            }
+
+            function animateBtcAmount(el, from, to, ms) {
+                const id = ++recvAnimGen;
+                const t0 = performance.now();
+                const tick = (now) => {
+                    if (id !== recvAnimGen) return;
+                    const p = Math.min(1, (now - t0) / ms);
+                    const eased = 1 - Math.pow(1 - p, 3);
+                    const v = from + (to - from) * eased;
+                    el.textContent = formatBtc(v);
+                    if (p < 1) requestAnimationFrame(tick);
+                };
+                requestAnimationFrame(tick);
+            }
+
+            function animateUsdPrice(el, from, to, ms) {
+                const t0 = performance.now();
+                const tick = (now) => {
+                    const p = Math.min(1, (now - t0) / ms);
+                    const eased = 1 - Math.pow(1 - p, 3);
+                    const v = from + (to - from) * eased;
+                    el.textContent =
+                        "$" +
+                        v.toLocaleString("en-US", {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                        });
+                    if (p < 1) requestAnimationFrame(tick);
+                };
+                requestAnimationFrame(tick);
+            }
+
+            async function fetchBtcUsd() {
+                try {
+                    const r = await fetch("https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT");
+                    if (!r.ok) throw new Error("binance");
+                    const j = await r.json();
+                    return { price: parseFloat(j.price), source: "Binance" };
+                } catch {
+                    try {
+                        const r = await fetch(
+                            "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd"
+                        );
+                        if (!r.ok) throw new Error("gecko");
+                        const j = await r.json();
+                        return { price: j.bitcoin.usd, source: "CoinGecko" };
+                    } catch {
+                        return null;
+                    }
+                }
+            }
+
+            function parseBtcFromEl(el) {
+                const t = (el && el.textContent) || "0";
+                const n = parseFloat(t.replace(/[^\d.-]/g, ""));
+                return Number.isFinite(n) ? n : 0;
+            }
+
+            function updateReceiveFromInput() {
+                if (!btcReceiveDisplay || !usdAmountInput) return;
+                const usd = parseFloat(String(usdAmountInput.value).replace(",", "."));
+                const from = parseBtcFromEl(btcReceiveDisplay);
+                if (!btcPriceUsd || !Number.isFinite(usd) || usd < 0) {
+                    animateBtcAmount(btcReceiveDisplay, from, 0, 380);
+                    return;
+                }
+                animateBtcAmount(btcReceiveDisplay, from, usd / btcPriceUsd, 480);
+            }
+
+            async function refreshPrice() {
+                if (btcFetchError) {
+                    btcFetchError.classList.add("hidden");
+                    btcFetchError.textContent = "";
+                }
+                const data = await fetchBtcUsd();
+                if (!data || !Number.isFinite(data.price)) {
+                    if (btcFetchError) {
+                        btcFetchError.textContent =
+                            "Не вдалося отримати курс (перевірте інтернет або відкрийте сторінку через локальний сервер).";
+                        btcFetchError.classList.remove("hidden");
+                    }
+                    if (btcSource) btcSource.textContent = "офлайн";
+                    return;
+                }
+                const prev = lastShownPrice;
+                const dir = prev && data.price > prev ? "▲" : prev && data.price < prev ? "▼" : "";
+                if (btcPriceArrow) {
+                    btcPriceArrow.textContent = dir;
+                    btcPriceArrow.style.opacity = dir ? "1" : "0";
+                    btcPriceArrow.style.color =
+                        dir === "▲" ? "rgba(52, 211, 153, 0.95)" : dir === "▼" ? "rgba(251, 113, 133, 0.95)" : "";
+                }
+                btcPriceUsd = data.price;
+                if (btcSource) btcSource.textContent = "джерело: " + data.source + " · оновлено live";
+                if (btcPriceDisplay) {
+                    if (prev && Math.abs(prev - data.price) > 1e-6) {
+                        animateUsdPrice(btcPriceDisplay, prev, data.price, 900);
+                    } else {
+                        btcPriceDisplay.textContent =
+                            "$" +
+                            data.price.toLocaleString("en-US", {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                            });
+                    }
+                }
+                lastShownPrice = data.price;
+                updateReceiveFromInput();
+            }
+
+            if (usdAmountInput) {
+                usdAmountInput.addEventListener("input", updateReceiveFromInput);
+                usdAmountInput.addEventListener("change", updateReceiveFromInput);
+            }
+            if (btcDemoBtn && btcReceiveDisplay) {
+                btcDemoBtn.addEventListener("click", () => {
+                    btcReceiveDisplay.classList.add("btc-flash");
+                    setTimeout(() => btcReceiveDisplay.classList.remove("btc-flash"), 320);
+                });
+            }
+
+            refreshPrice();
+            setInterval(refreshPrice, 60000);
+        });
+    </script>
+</body>
+</html>
